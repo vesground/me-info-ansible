@@ -1,9 +1,14 @@
-// SETUP OPTIONS
+### SETUP OPTIONS
 **1. Update vars/ip in "demo" and "prod" run files (site.retry)**
+
 **2. Replace repo ssh keys configs in "files" directory on your own (Dont push it to repo)**
+
 **3. Update all variables depend on your app in "group_vars" directory**
+
 **4. Update "site.yml" depend on your dependencies (add new dependencies in "galaxyfile.yml" to install it later)**
+
 **5. Write your own roles in "roles" directory (all configs of your app put into templates)**
+
 **6. Install roles**
 sudo ansible-galaxy install -r galaxyfile.yml --force
 
@@ -11,7 +16,8 @@ sudo ansible-galaxy install -r galaxyfile.yml --force
 ssh-copy-id user@domain -p port
 
 
-// RUN OPTIONS
+### RUN OPTIONS
+
 **Deploy with vagrant**
 vagrant box add ubuntu/trusty64
 vagrant up
