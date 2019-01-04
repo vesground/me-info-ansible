@@ -1,0 +1,6 @@
+[appservers]
+35.196.120.231
+
+[appservers:vars]
+ansible_python_interpreter=/usr/bin/python3
+hostname=vesground.info

@@ -1,0 +1,11 @@
+---
+  - name: restart app
+    become: yes
+    become_user: '{{sources_target_user}}'
+    shell: "{{item}}"
+    ignore_errors: yes
+    args:
+      chdir: "{{sources_target_dir}}"
+    with_items:
+      - "npm run build"
+      - "npm run restart"

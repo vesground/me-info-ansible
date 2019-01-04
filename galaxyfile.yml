@@ -1,0 +1,20 @@
+# - src: webbylab.common
+#   version: master
+
+# - src: webbylab.sources
+#   version: master
+
+# - src: geerlingguy.nodejs
+#   version: master
+
+# - src: webbylab.mongodb
+#   version: master
+
+# - src: webbylab.logrotate
+#   version: master
+
+- src: webbylab.nginx-proxy
+  version: db6a672fab2fa3b592da94d38b72142d2162c786
+
+# - src: https://github.com/WebbyLab/ansible-role-exim4-sender.git
+#   version: master

@@ -1,0 +1,36 @@
+---
+  - name: VESGROUND-INFO | Dependencies install
+    become: yes
+    become_user: '{{sources_target_user}}'
+    npm: path={{sources_target_dir}}
+    ignore_errors: True
+    notify: restart app
+
+  - name: VESGROUND-INFO | Create configs
+    become: yes
+    become_user: '{{sources_target_user}}'
+    template: "{{item}}"
+    ignore_errors: yes
+    args:
+        chdir: "{{sources_target_dir}}"
+    with_items:
+        - "src=config.json.j2 dest={{sources_target_dir}}/config/config.json"
+        - "src=index.html.j2 dest={{sources_target_dir}}/config/index.html.sample"
+    notify: restart app
+
+
+  # - name: VESGROUND-INFO | Restart be
+  #   become: yes
+  #   become_user: '{{sources_target_user}}'
+  #   shell: "{{item}}"
+  #   ignore_errors: yes
+  #   args:
+  #       chdir: "{{sources_target_dir}}"
+  #   with_items:
+  #       - "npm run stop"
+  #       - "npm run start"
+
+  - name: VESGROUND-INFO | CRON - add server to autostart
+    become: yes
+    become_user: '{{sources_target_user}}'
+    cron: special_time=reboot name='autostart pm2 for be' job='chdir {{sources_target_dir}} && npm run restart'

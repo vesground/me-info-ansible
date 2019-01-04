@@ -1,0 +1,25 @@
+---
+# common
+remote_user: ubuntu
+hostname: vesground.info
+
+# sources
+sources_create_deploy_user: true
+sources_target_user: vesground-info
+sources_git_pem: files/github.pem
+
+sources_branch_name: dev
+sources_repo: git@github.com:vesground/me-info.git
+sources_target_dir: /home/{{sources_target_user}}/me-info
+sources_register: state
+
+# nginx_proxy
+nginx_proxy_hostname: "{{hostname}}"
+
+# logrotate
+logrotate_name: '{{sources_target_user}}'
+logrotate_logfile: '{{sources_target_dir}}/logs/{{sources_target_user}}.log'
+logrotate_user: '{{sources_target_user}}'
+logrotate_group: '{{sources_target_user}}'
+
+app_port:   9000

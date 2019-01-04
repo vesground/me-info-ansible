@@ -1,0 +1,27 @@
+---
+- hosts: appservers
+  remote_user: "{{remote_user}}"
+  become: yes
+  gather_facts: true
+  roles:
+    - {role: webbylab.common, timezone: 'Europe/Kiev', common_hostname: ''}
+
+    - role: webbylab.sources
+      sources_version: '{{sources_branch_name}}'
+      sources_target_dir: '{{sources_target_dir}}'
+      sources_repo: '{{sources_repo}}'
+      sources_register: "state"
+
+    - geerlingguy.nodejs
+    - webbylab.mongodb
+    - webbylab.logrotate
+
+    - role: webbylab.nginx-proxy
+      nginx_proxy_listen_port: 80
+      nginx_proxy_configuration_name: vesground
+      nginx_proxy_static_locations: []
+      nginx_proxy_pass_locations:
+          - {location: '/', proxy_pass: 'http://127.0.0.1:{{app_port}}'}
+          - {location: '/static',      proxy_pass: 'http://127.0.0.1:{{app_port}}'}
+
+    - run
